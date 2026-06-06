@@ -1,0 +1,18 @@
+services:
+  web-ext:
+    # イメージ名にレジストリを含める
+    image: registry.gskraft.com/web-ext-signer:latest
+    container_name: web-ext-signer
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/work:Z
+    environment:
+      - AMO_API_KEY=${AMO_API_KEY}
+      - AMO_API_SECRET=${AMO_API_SECRET}
+    command: >
+      sign
+      --api-key=${AMO_API_KEY}
+      --api-secret=${AMO_API_SECRET}
+      --artifacts-dir=/work/artifacts
